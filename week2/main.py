@@ -122,7 +122,7 @@ def tfidf_search(query, df, matrix, vectorizer, top_k=3) -> pd.DataFrame:
     # fit_transform을 사용하지 않는 이유: 문서벡터와 질문벡터의 차원이 달라져 코사인 유사도를 계산할 수 없기 때문
     q_vec = vectorizer.transform([preprocess(query)]).toarray()[0]  # 질문을 TF-IDF 벡터로 변환 후 np배열로 변환
 
-    doc_matrix = matrix.toarray()                                   # 희소행렬을 np배열로 변환
+    doc_matrix = matrix.toarray()                                   # 희소행렬을 np배열로 변환(희소 행렬을 밀집 행렬로 바꿔 메모리를 많이 씁니다)
 
     sims = [
         cosine_similarity_numpy(q_vec, doc_matrix[i])               # 질문과 각 문서의 코사인 유사도 계산
